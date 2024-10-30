@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Resume Builder</title>
+    </head>
+    <body>
+        <div class="form">
+            <h2>Quick Resume Builder</h2>
+            <form id="resume-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="intro">Introduction</label>
+                    <textarea id="intro" name="intro" rows="3" placeholder="Write a short introduction..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+                <div id="education-container">
+                    <h3>Education</h3>
+                    <div class="education-entry">
+                        <label for="education">Education Level</label>
+                        <select name="education[]" required>
+                        <option value="High School">High School</option>
+                        <option value="Bachelors">Bachelor's Degree</option>
+                        <option value="Masters">Master's Degree</option>
+                        <option value="PHD">PhD</option>
+                        </select>
+    
+                        <label for="field_of_study">Field of Study</label>
+                        <select name="field_of_study[]" required>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Business">Business</option>
+                            <option value="Arts">Arts</option>
+                        </select>
+    
+                        <label for="start_year">Starting Year</label>
+                        <input type="number" name="start_year[]" placeholder="Enter starting year" min="1984" max="2099" required>
+    
+                        <label for="end_year">Ending Year</label>
+                        <input type="number" name="end_year[]" placeholder="Enter ending year" min="1984" max="2099" required>
+                    </div>
+                </div>
+    
+                <button type="button" onclick="addEducation()" class="submit-btn">Add More Education</button>
+                <div class="form-group">
+                    <label for="skills">Skills</label>
+                    <select id="skills" name="skills">
+                        <option value="" disabled selected>Select a skill</option>
+                        <option value="programming">Programming</option>
+                        <option value="web_design">Web Design</option>
+                        <option value="data_analysis">Data Analysis</option>
+                        <option value="project_management">Project Management</option>
+                        <option value="communication">Communication</option>
+                    </select>
+                    <button class="bt1" type="button" onclick="addSkill()">Add Skill</button>
+                
+                    <div id="selected-skills">
+                        <h4>Selected Skills:</h4>
+                        <ul id="skills-list"></ul>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label for="experience">Experience Level</label>
+                    <select id="experience" name="experience" required>
+                        <option value="Entry level">Entry Level</option>
+                        <option value="Mid level">Mid Level</option>
+                        <option value="Senior level">Senior Level</option>
+                        <option value="Executive">Executive</option>
+                    </select>
+                </div>
+    
+                <button type="button" onclick="buildResume()" class="submit-btn">Build Resume</button>
+            </form>
+        </div>
+    
+    
+        <script src="index.js"></script>
+    </body>
+    </html>
+    
+</body>
+</html>

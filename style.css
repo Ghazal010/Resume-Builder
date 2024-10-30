@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(5.png);
+    background-repeat: no-repeat;
+    background-size:cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:auto;
+    margin: 0;
+    font-family: "Roboto Mono", monospace;
+    color: white;
+}
+.form{
+    background-image: linear-gradient(to top, #140b4d, #37206f, #5e3994);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    height: auto;
+}
+h2 {
+    text-align: center;
+    color: #f3efef;
+    font-family: "Roboto Mono", monospace;
+}
+.form-group {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 30px;
+    margin-top: 5px;
+    
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+input, select, textarea {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #ca9ef5, #df86e0);
+}
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background: linear-gradient(140deg, #ca9ef5, #c367e8);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.submit-btn:hover {
+    background: linear-gradient(120deg, #ca9ef5, #df86e0);
+}
+.education-entry {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 30px;
+    margin-bottom: 15px;
+    background-image: (to top, #140b4d, #37206f, #5e3994);
+    
+}
+.bt1{
+    background: linear-gradient(120deg, #ca9ef5, #df86e0);  
+}
+.remove-btn {
+    background: rgb(54, 6, 75);
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
