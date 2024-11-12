@@ -1,51 +1,183 @@
 function addEducation() {
-    var educationContainer = document.getElementById('education-container');
-    var newEducationEntry = document.createElement('div');
+    const educationContainer = document.getElementById('education-container');
+
+    let newEducationEntry = document.createElement('div');
     newEducationEntry.classList.add('education-entry');
-    newEducationEntry.innerHTML = "\n        <label for=\"education\">Education Level</label>\n        <select name=\"education[]\" required>\n            <option value=\"High School\">High School</option>\n            <option value=\"Bachelors\">Bachelor's Degree</option>\n            <option value=\"Masters\">Master's Degree</option>\n            <option value=\"PHD\">PhD</option>\n        </select>\n\n        <label for=\"field_of_study\">Field of Study</label>\n        <select name=\"field_of_study[]\" required>\n            <option value=\"Computer Science\">Computer Science</option>\n            <option value=\"Engineering\">Engineering</option>\n            <option value=\"Business\">Business</option>\n            <option value=\"Arts\">Arts</option>\n        </select>\n\n        <label for=\"start_year\">Starting Year</label>\n        <input type=\"number\" name=\"start_year[]\" placeholder=\"Enter starting year\" min=\"1984\" max=\"2099\" required>\n\n        <label for=\"end_year\">Ending Year</label>\n        <input type=\"number\" name=\"end_year[]\" placeholder=\"Enter ending year\" min=\"1984\" max=\"2099\" required>\n    ";
+
+    newEducationEntry.innerHTML = `
+        <label for="education">Education Level</label>
+        <select name="education[]" required>
+            <option value="High School">High School</option>
+            <option value="Bachelors">Bachelor's Degree</option>
+            <option value="Masters">Master's Degree</option>
+            <option value="PHD">PhD</option>
+        </select>
+
+        <label for="field_of_study">Field of Study</label>
+        <select name="field_of_study[]" required>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Business">Business</option>
+            <option value="Arts">Arts</option>
+        </select>
+
+        <label for="start_year">Starting Year</label>
+        <input type="number" name="start_year[]" placeholder="Enter starting year" min="1984" max="2099" required>
+
+        <label for="end_year">Ending Year</label>
+        <input type="number" name="end_year[]" placeholder="Enter ending year" min="1984" max="2099" required>
+    `;
+
     educationContainer.appendChild(newEducationEntry);
 }
+
 function buildResume() {
-    var name = document.getElementById('name').value;
-    var intro = document.getElementById('intro').value;
-    var phone = document.getElementById('phone').value;
-    var email = document.getElementById('email').value;
-    var educationEntries = document.querySelectorAll('.education-entry');
-    var educationData = [];
-    educationEntries.forEach(function (entry) {
-        var educationLevel = entry.querySelector('select[name="education[]"]').value;
-        var fieldOfStudy = entry.querySelector('select[name="field_of_study[]"]').value;
-        var startYear = entry.querySelector('input[name="start_year[]"]').value;
-        var endYear = entry.querySelector('input[name="end_year[]"]').value;
-        educationData.push({ educationLevel: educationLevel, fieldOfStudy: fieldOfStudy, startYear: startYear, endYear: endYear });
+    const name = document.getElementById('name').value;
+    const intro = document.getElementById('intro').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+
+    const educationEntries = document.querySelectorAll('.education-entry');
+    const educationData = [];
+    
+    educationEntries.forEach(entry => {
+        const educationLevel = entry.querySelector('select[name="education[]"]').value;
+        const fieldOfStudy = entry.querySelector('select[name="field_of_study[]"]').value;
+        const startYear = entry.querySelector('input[name="start_year[]"]').value;
+        const endYear = entry.querySelector('input[name="end_year[]"]').value;
+
+        educationData.push({ educationLevel, fieldOfStudy, startYear, endYear });
     });
-    var skillsList = document.getElementById("skills-list");
-    var skills = Array.from(skillsList.children).map(function (skill) { return skill.textContent || ''; });
-    var experience = document.getElementById('experience').value;
-    var newTab = window.open();
+
+    const skillsList = document.getElementById("skills-list");
+    const skills = Array.from(skillsList.children).map(skill => skill.textContent || '');
+
+    const experience = document.getElementById('experience').value;
+
+    const newTab = window.open();
     if (newTab) {
-        newTab.document.write("\n            <!DOCTYPE html>\n            <html lang=\"en\">\n            <head>\n                <meta charset=\"UTF-8\">\n                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n                <title>".concat(name, "'s Resume</title>\n                <link href=\"style.css\" rel=\"stylesheet\"> \n                <style>\n                    body {\n                        font-family: Arial, sans-serif;\n                        background-image: url(2\\ (1).png);\n                        background-repeat: no-repeat;\n                        background-size: cover;\n                        display: flex;\n                        justify-content: center;\n                        align-items: center;\n                        height: auto;\n                        margin: 0;\n                        font-family: \"Roboto Mono\", monospace;\n                        color: white;\n                    }\n                    .container {\n                        width: 60%;\n                        margin: auto;\n                        padding: 20px;\n                        background: #ffffff;\n                        border-radius: 10px;\n                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);\n                    }\n                    h1 {\n                        text-align: center;\n                        color: #34034b;\n                        font-size: 2.5em;\n                        margin-bottom: 10px;\n                    }\n                    h2 {\n                        color: #34034b;\n                        font-size: 1.5em;\n                        margin-top: 20px;\n                    }\n                    p, ul {\n                        font-size: 16px;\n                        line-height: 1.6;\n                        color: #371a44;\n                    }\n                    .resume-section {\n                        margin-bottom: 20px;\n                        padding: 15px;\n                        background: #f8f9fa;\n                        border-left: 5px solid #007bff;\n                        border-radius: 5px;\n                    }\n                    .resume-section ul {\n                        list-style-type: none;\n                        padding: 0;\n                    }\n                    .resume-section li {\n                        padding: 5px 0;\n                    }\n                </style>\n            </head>\n            <body>\n                <div class=\"container\">\n                    <h1>").concat(name, "</h1>\n                    <p>").concat(intro, "</p>\n                    <p><strong>Phone:</strong> ").concat(phone, "</p>\n                    <p><strong>Email:</strong> ").concat(email, "</p>\n                    <div class=\"resume-section\">\n                        <h2>Education</h2>\n                        <ul>\n        "));
-        educationData.forEach(function (edu) {
-            newTab.document.write("\n                <li>".concat(edu.educationLevel, " in ").concat(edu.fieldOfStudy, " (").concat(edu.startYear, "-").concat(edu.endYear, ")</li>\n            "));
+        newTab.document.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>${name}'s Resume</title>
+                <link href="style.css" rel="stylesheet"> 
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-image: url(back\ 2.png);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: auto;
+                        margin: 0;
+                        font-family:'Times New Roman', Times, serif;
+                        color: white;
+                    }
+                    .container {
+                        width: 60%;
+                        margin: auto;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                        background-image: url(back\\ 4.png);
+                    }
+                    h1 {
+                        text-align: center;
+                        color: white;
+                        font-size: 2.5em;
+                        margin-bottom: 10px;
+                        font-family:'Times New Roman', Times, serif;
+                    }
+                    h2 {
+                        color: #78866b;
+                        font-size: 1.5em;
+                        margin-top: 20px;
+                    }
+                    p, ul {
+                        font-size: 16px;
+                        line-height: 1.6;
+                        color: #010203;
+                    }
+                    .resume-section {
+                        margin-bottom: 20px;
+                        padding: 15px;
+                        background: #f7f4e5;
+                        border: 5px solid #78866b;
+                        border-radius: 20px;
+                    }
+                    .resume-section ul {
+                        list-style-type: none;
+                        padding: 0;
+                    }
+                    .resume-section li {
+                        padding: 5px 0;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h1>${name}</h1>
+                    <p>${intro}</p>
+                    <p><strong>Phone:</strong> ${phone}</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <div class="resume-section">
+                        <h2>Education</h2>
+                        <ul>
+        `);
+
+        educationData.forEach(edu => {
+            newTab.document.write(`
+                <li>${edu.educationLevel} in ${edu.fieldOfStudy} (${edu.startYear}-${edu.endYear})</li>
+            `);
         });
-        newTab.document.write("\n                        </ul>\n                    </div>\n                    <div class=\"resume-section\">\n                        <h2>Skills</h2>\n                        <ul>\n        ");
-        skills.forEach(function (skill) {
-            newTab.document.write("\n         <li>".concat(skill, "</li>\n            "));
+
+        newTab.document.write(`
+                        </ul>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Skills</h2>
+                        <ul>
+        `);
+
+        skills.forEach(skill => {
+            newTab.document.write(`
+                <li>${skill}</li>
+            `);
         });
-        newTab.document.write("\n                        </ul>\n                    </div>\n                    <div class=\"resume-section\">\n                        <h2>Experience Level</h2>\n                        <p>".concat(experience, "</p>\n                    </div>\n                </div>\n            </body>\n            </html>\n        "));
+
+        newTab.document.write(`
+                        </ul>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Experience Level</h2>
+                        <p>${experience}</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `);
+
         newTab.document.close();
     }
 }
+
 function addSkill() {
-    var skillsSelect = document.getElementById("skills");
-    var selectedSkill = skillsSelect.options[skillsSelect.selectedIndex].text;
-    var selectedValue = skillsSelect.value;
+    const skillsSelect = document.getElementById("skills");
+    const selectedSkill = skillsSelect.options[skillsSelect.selectedIndex].text;
+    const selectedValue = skillsSelect.value;
+
     if (selectedValue === "") {
         alert("Please select a skill first.");
         return;
     }
-    var skillsList = document.getElementById("skills-list");
-    var skillItem = document.createElement("li");
+
+    const skillsList = document.getElementById("skills-list");
+    const skillItem = document.createElement("li");
     skillItem.textContent = selectedSkill;
     skillsList.appendChild(skillItem);
     skillsSelect.selectedIndex = 0;

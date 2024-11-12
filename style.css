@@ -1,6 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
-    background-image: url(5.png);
+    background-image: url(back\ 2.png);
     background-repeat: no-repeat;
     background-size:cover;
     display: flex;
@@ -12,19 +11,24 @@ body {
     color: white;
 }
 .form{
-    background-image: linear-gradient(to top, #140b4d, #37206f, #5e3994);
+    background-image: url(back\ 4.png);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 60%;
     height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 h2 {
     text-align: center;
-    color: #f3efef;
-    font-family: "Roboto Mono", monospace;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 50px;
+    background: linear-gradient(to right, #375c5c 40%, #fbe8d3 60%, #fefefe 100%); /* More green emphasis */
+    background-clip: text;
+    color: transparent;
 }
-.form-group {
+.form-group {       
     margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -41,20 +45,20 @@ input, select, textarea {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background: linear-gradient(135deg, #ca9ef5, #df86e0);
+    background: linear-gradient(to left, #5e7979 20%, #fbe8d3 80%, #fefefe 100%);
 }
 .submit-btn {
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 4px;
-    background: linear-gradient(140deg, #ca9ef5, #c367e8);
+    background: linear-gradient(to right, #375c5c 40%, #fbe8d3 60%, #fefefe 100%);
     color: white;
     font-size: 16px;
     cursor: pointer;
 }
 .submit-btn:hover {
-    background: linear-gradient(120deg, #ca9ef5, #df86e0);
+    background: linear-gradient(to left, #375c5c 2%, #fbe8d3 80%, #fefefe 100%);;
 }
 .education-entry {
     border: 1px solid #ddd;
@@ -65,7 +69,7 @@ input, select, textarea {
     
 }
 .bt1{
-    background: linear-gradient(120deg, #ca9ef5, #df86e0);  
+    background: linear-gradient(to left, #375c5c 20%, #fbe8d3 80%, #fefefe 80%);
 }
 .remove-btn {
     background: rgb(54, 6, 75);

@@ -67,7 +67,7 @@ const newTab = window.open();
                 <style>
                     body {
                         font-family: Arial, sans-serif;
-                        background-image: url(2\\ (1).png);
+                        background-image: url(back\ 2.png);
                         background-repeat: no-repeat;
                         background-size: cover;
                         display: flex;
@@ -82,7 +82,6 @@ const newTab = window.open();
                         width: 60%;
                         margin: auto;
                         padding: 20px;
-                        background: #ffffff;
                         border-radius: 10px;
                         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
                     }
