@@ -1,9 +1,9 @@
+"use strict";
+
 function addEducation() {
     const educationContainer = document.getElementById('education-container');
-
-    let newEducationEntry = document.createElement('div');
+    const newEducationEntry = document.createElement('div');
     newEducationEntry.classList.add('education-entry');
-
     newEducationEntry.innerHTML = `
         <label for="education">Education Level</label>
         <select name="education[]" required>
@@ -27,33 +27,84 @@ function addEducation() {
         <label for="end_year">Ending Year</label>
         <input type="number" name="end_year[]" placeholder="Enter ending year" min="1984" max="2099" required>
     `;
-
     educationContainer.appendChild(newEducationEntry);
 }
 
+function removeEducation(entry) {
+    entry.remove();
+}
+
+function addSkill() {
+    const skillsDropdown = document.getElementById('skills');
+    const selectedSkill = skillsDropdown.value;
+    
+    if (!selectedSkill) {
+        alert('Please select a skill before adding!');
+        return;
+    }
+    const skillsList = document.getElementById('skills-list');
+    
+    const existingSkills = Array.from(skillsList.children).map(skill => skill.textContent || '');
+    if (existingSkills.includes(selectedSkill)) {
+        alert('Skill already added!');
+        return;
+    }
+    
+    const newSkillItem = document.createElement('li');
+    newSkillItem.textContent = selectedSkill;
+    
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.style.marginLeft = '10px';
+    removeButton.onclick = function () {
+        skillsList.removeChild(newSkillItem);
+    };
+    
+    newSkillItem.appendChild(removeButton);
+    
+    skillsList.appendChild(newSkillItem);
+    
+    skillsDropdown.value = '';
+}
+
 function buildResume() {
+    var _a;
     const name = document.getElementById('name').value;
     const intro = document.getElementById('intro').value;
     const phone = document.getElementById('phone').value;
     const email = document.getElementById('email').value;
-
     const educationEntries = document.querySelectorAll('.education-entry');
     const educationData = [];
-    
-    educationEntries.forEach(entry => {
+    educationEntries.forEach((entry) => {
         const educationLevel = entry.querySelector('select[name="education[]"]').value;
         const fieldOfStudy = entry.querySelector('select[name="field_of_study[]"]').value;
         const startYear = entry.querySelector('input[name="start_year[]"]').value;
         const endYear = entry.querySelector('input[name="end_year[]"]').value;
-
         educationData.push({ educationLevel, fieldOfStudy, startYear, endYear });
     });
-
-    const skillsList = document.getElementById("skills-list");
-    const skills = Array.from(skillsList.children).map(skill => skill.textContent || '');
+    const skillsList = document.getElementById('skills-list');
+    const skills = [];
+   
+    function toTitleCase(str) {
+        return str
+            .toLowerCase()
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+   
+    const skillItems = skillsList.children;
+    for (let i = 0; i < skillItems.length; i++) {
+    
+        const skillItem = skillItems[i];
+        const skillName = ((_a = skillItem.textContent) === null || _a === void 0 ? void 0 : _a.replace('Remove', '').trim()) || '';
+        if (skillName) {
+            skills.push(toTitleCase(skillName)); 
+        }
+    }
+    console.log(skills);
 
     const experience = document.getElementById('experience').value;
-
     const newTab = window.open();
     if (newTab) {
         newTab.document.write(`
@@ -63,11 +114,11 @@ function buildResume() {
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>${name}'s Resume</title>
-                <link href="style.css" rel="stylesheet"> 
+                <link href="style.css" rel="stylesheet">
                 <style>
                     body {
                         font-family: Arial, sans-serif;
-                        background-image: url(back\ 2.png);
+                        background-image: url('back\\ 2.png');
                         background-repeat: no-repeat;
                         background-size: cover;
                         display: flex;
@@ -75,7 +126,7 @@ function buildResume() {
                         align-items: center;
                         height: auto;
                         margin: 0;
-                        font-family:'Times New Roman', Times, serif;
+                        font-family: "Roboto Mono", monospace;
                         color: white;
                     }
                     .container {
@@ -84,31 +135,29 @@ function buildResume() {
                         padding: 20px;
                         border-radius: 10px;
                         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                        background-image: url(back\\ 4.png);
                     }
                     h1 {
                         text-align: center;
-                        color: white;
+                        color: #34034b;
                         font-size: 2.5em;
                         margin-bottom: 10px;
-                        font-family:'Times New Roman', Times, serif;
                     }
                     h2 {
-                        color: #78866b;
+                        color: #34034b;
                         font-size: 1.5em;
                         margin-top: 20px;
                     }
                     p, ul {
                         font-size: 16px;
                         line-height: 1.6;
-                        color: #010203;
+                        color: #371a44;
                     }
                     .resume-section {
                         margin-bottom: 20px;
                         padding: 15px;
-                        background: #f7f4e5;
-                        border: 5px solid #78866b;
-                        border-radius: 20px;
+                        background: #f8f9fa;
+                        border: 5px solid #8988a6;
+                        border-radius: 5px;
                     }
                     .resume-section ul {
                         list-style-type: none;
@@ -128,29 +177,17 @@ function buildResume() {
                     <div class="resume-section">
                         <h2>Education</h2>
                         <ul>
-        `);
-
-        educationData.forEach(edu => {
-            newTab.document.write(`
-                <li>${edu.educationLevel} in ${edu.fieldOfStudy} (${edu.startYear}-${edu.endYear})</li>
-            `);
-        });
-
-        newTab.document.write(`
+                            ${educationData.map((edu) => {
+            return `<li>${edu.educationLevel} in ${edu.fieldOfStudy} (${edu.startYear}-${edu.endYear})</li>`;
+        }).join('')}
                         </ul>
                     </div>
                     <div class="resume-section">
                         <h2>Skills</h2>
                         <ul>
-        `);
-
-        skills.forEach(skill => {
-            newTab.document.write(`
-                <li>${skill}</li>
-            `);
-        });
-
-        newTab.document.write(`
+                            ${skills.map(function (skill) {
+            return `<li>${skill}</li>`;
+        }).join('')}
                         </ul>
                     </div>
                     <div class="resume-section">
@@ -161,24 +198,6 @@ function buildResume() {
             </body>
             </html>
         `);
-
         newTab.document.close();
     }
-}
-
-function addSkill() {
-    const skillsSelect = document.getElementById("skills");
-    const selectedSkill = skillsSelect.options[skillsSelect.selectedIndex].text;
-    const selectedValue = skillsSelect.value;
-
-    if (selectedValue === "") {
-        alert("Please select a skill first.");
-        return;
-    }
-
-    const skillsList = document.getElementById("skills-list");
-    const skillItem = document.createElement("li");
-    skillItem.textContent = selectedSkill;
-    skillsList.appendChild(skillItem);
-    skillsSelect.selectedIndex = 0;
 }

@@ -9,15 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <title>Resume Builder</title>
-    </head>
     <body>
         <div class="form">
             <h2>Quick Resume Builder</h2>
@@ -70,11 +61,11 @@
                     <label for="skills">Skills</label>
                     <select id="skills" name="skills">
                         <option value="" disabled selected>Select a skill</option>
-                        <option value="programming">Programming</option>
-                        <option value="web_design">Web Design</option>
-                        <option value="data_analysis">Data Analysis</option>
-                        <option value="project_management">Project Management</option>
-                        <option value="communication">Communication</option>
+                        <option value="Programming">Programming</option>
+                        <option value="Web Design">Web Design</option>
+                        <option value="Data Analysis">Data Analysis</option>
+                        <option value="Project Management">Project Management</option>
+                        <option value="Communication">Communication</option>
                     </select>
                     <button class="bt1" type="button" onclick="addSkill()">Add Skill</button>
                 
@@ -97,11 +88,9 @@
                 <button type="button" onclick="buildResume()" class="submit-btn">Build Resume</button>
             </form>
         </div>
-    
-    
         <script src="index.js"></script>
-    </body>
-    </html>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     
 </body>
 </html>

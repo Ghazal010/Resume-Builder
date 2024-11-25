@@ -1,9 +1,9 @@
+"use strict";
+
 function addEducation(): void {
     const educationContainer = document.getElementById('education-container') as HTMLElement;
-
-    let newEducationEntry = document.createElement('div');
+    const newEducationEntry = document.createElement('div');
     newEducationEntry.classList.add('education-entry');
-
     newEducationEntry.innerHTML = `
         <label for="education">Education Level</label>
         <select name="education[]" required>
@@ -27,34 +27,103 @@ function addEducation(): void {
         <label for="end_year">Ending Year</label>
         <input type="number" name="end_year[]" placeholder="Enter ending year" min="1984" max="2099" required>
     `;
-
     educationContainer.appendChild(newEducationEntry);
 }
 
+
+function removeEducation(entry: HTMLElement): void {
+    entry.remove();
+}
+
+
+function addSkill(): void {
+    const skillsDropdown = document.getElementById('skills') as HTMLSelectElement;
+    const selectedSkill = skillsDropdown.value;
+
+   
+    if (!selectedSkill) {
+        alert('Please select a skill before adding!');
+        return;
+    }
+
+    const skillsList = document.getElementById('skills-list') as HTMLElement;
+
+    
+    const existingSkills = Array.from(skillsList.children).map(skill => skill.textContent || '');
+    if (existingSkills.includes(selectedSkill)) {
+        alert('Skill already added!');
+        return;
+    }
+
+    
+    const newSkillItem = document.createElement('li');
+    newSkillItem.textContent = selectedSkill;
+
+   
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.style.marginLeft = '10px';
+    removeButton.onclick = function () {
+        skillsList.removeChild(newSkillItem);
+    };
+
+    
+    newSkillItem.appendChild(removeButton);
+
+    
+    skillsList.appendChild(newSkillItem);
+
+  
+    skillsDropdown.value = '';
+}
+
+
 function buildResume(): void {
-    const name: string = (document.getElementById('name') as HTMLInputElement).value;
-    const intro: string = (document.getElementById('intro') as HTMLTextAreaElement).value;
-    const phone: string = (document.getElementById('phone') as HTMLInputElement).value;
-    const email: string = (document.getElementById('email') as HTMLInputElement).value;
+    const name = (document.getElementById('name') as HTMLInputElement).value;
+    const intro = (document.getElementById('intro') as HTMLTextAreaElement).value;
+    const phone = (document.getElementById('phone') as HTMLInputElement).value;
+    const email = (document.getElementById('email') as HTMLInputElement).value;
 
     const educationEntries = document.querySelectorAll('.education-entry');
-    const educationData: Array<{ educationLevel: string, fieldOfStudy: string, startYear: string, endYear: string }> = [];
-    
-    educationEntries.forEach(entry => {
+    const educationData: { educationLevel: string, fieldOfStudy: string, startYear: string, endYear: string }[] = [];
+
+    educationEntries.forEach((entry: Element) => {
         const educationLevel = (entry.querySelector('select[name="education[]"]') as HTMLSelectElement).value;
         const fieldOfStudy = (entry.querySelector('select[name="field_of_study[]"]') as HTMLSelectElement).value;
         const startYear = (entry.querySelector('input[name="start_year[]"]') as HTMLInputElement).value;
         const endYear = (entry.querySelector('input[name="end_year[]"]') as HTMLInputElement).value;
-
         educationData.push({ educationLevel, fieldOfStudy, startYear, endYear });
     });
 
-const skillsList = document.getElementById("skills-list") as HTMLUListElement;
-const skills: string[] = Array.from(skillsList.children).map(skill => skill.textContent || '');
+    const skillsList = document.getElementById('skills-list') as HTMLElement;
+    const skills: string[] = [];
+    
+  
+    function toTitleCase(str: string): string {
+        return str
+            .toLowerCase()
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+    
+    
+    const skillItems = skillsList.children;
+    for (let i = 0; i < skillItems.length; i++) {
+        
+        const skillItem = skillItems[i] as HTMLLIElement;
+        const skillName = skillItem.textContent?.replace('Remove', '').trim() || '';
+        if (skillName) {
+            skills.push(toTitleCase(skillName)); 
+        }
+    }
+    
+    console.log(skills);
+    
 
-let experience: string = (document.getElementById('experience') as HTMLTextAreaElement).value;
+    const experience = (document.getElementById('experience') as HTMLTextAreaElement).value;
 
-const newTab = window.open();
+    const newTab = window.open();
     if (newTab) {
         newTab.document.write(`
             <!DOCTYPE html>
@@ -63,11 +132,11 @@ const newTab = window.open();
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>${name}'s Resume</title>
-                <link href="style.css" rel="stylesheet"> 
+                <link href="style.css" rel="stylesheet">
                 <style>
                     body {
                         font-family: Arial, sans-serif;
-                        background-image: url(back\ 2.png);
+                        background-image: url('back\\ 2.png');
                         background-repeat: no-repeat;
                         background-size: cover;
                         display: flex;
@@ -105,7 +174,7 @@ const newTab = window.open();
                         margin-bottom: 20px;
                         padding: 15px;
                         background: #f8f9fa;
-                        border-left: 5px solid #007bff;
+                        border: 5px solid #8988a6;
                         border-radius: 5px;
                     }
                     .resume-section ul {
@@ -126,29 +195,17 @@ const newTab = window.open();
                     <div class="resume-section">
                         <h2>Education</h2>
                         <ul>
-        `);
-
-        educationData.forEach(edu => {
-            newTab.document.write(`
-                <li>${edu.educationLevel} in ${edu.fieldOfStudy} (${edu.startYear}-${edu.endYear})</li>
-            `);
-        });
-
-        newTab.document.write(`
+                            ${educationData.map((edu) => {
+                                return `<li>${edu.educationLevel} in ${edu.fieldOfStudy} (${edu.startYear}-${edu.endYear})</li>`;
+                            }).join('')}
                         </ul>
                     </div>
                     <div class="resume-section">
                         <h2>Skills</h2>
                         <ul>
-        `);
-
-skills.forEach(skill => {
-    newTab.document.write(`
-         <li>${skill}</li>
-            `);
-        });
-
-        newTab.document.write(`
+                            ${skills.map(function (skill) { 
+                                return `<li>${skill}</li>`; 
+                            }).join('')}
                         </ul>
                     </div>
                     <div class="resume-section">
@@ -159,23 +216,6 @@ skills.forEach(skill => {
             </body>
             </html>
         `);
-
         newTab.document.close();
     }
-}
-function addSkill(): void {
-    const skillsSelect = document.getElementById("skills") as HTMLSelectElement;
-    const selectedSkill = skillsSelect.options[skillsSelect.selectedIndex].text;
-    const selectedValue = skillsSelect.value;
-
-    if (selectedValue === "") {
-        alert("Please select a skill first.");
-        return;
-    }
-
-    const skillsList = document.getElementById("skills-list") as HTMLUListElement;
-    const skillItem = document.createElement("li");
-    skillItem.textContent = selectedSkill;
-    skillsList.appendChild(skillItem);
-    skillsSelect.selectedIndex = 0;
 }
